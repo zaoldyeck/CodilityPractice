@@ -33,3 +33,10 @@ solution(10, 85, 30)
 //  expected worst-case time complexity is O(1);
 //expected worst-case space complexity is O(1).
 //
+
+def mySolution(x: Int, y: Int, d: Int): Int = {
+  val distance = y - x
+  val foot = distance / d
+  if (distance % d > 0) foot + 1 else foot
+}
+mySolution(10, 85, 30)

@@ -1,7 +1,7 @@
 def solution(A: Array[Int]): Int = {
   A.distinct.length
 }
-solution(Array(2,1,1,2,3,1))
+solution(Array(2, 1, 1, 2, 3, 1))
 solution(Array())
 //
 //that, given a zero-indexed array A consisting of N integers,
@@ -22,3 +22,10 @@ solution(Array())
 //Complexity:
 //
 //  expected worst-case time complexity is O(N*log(N));
+
+def mySolution(a: Array[Int]): Int = {
+  a.distinct.length
+}
+
+mySolution(Array(2, 1, 1, 2, 3, 1))
+mySolution(Array())

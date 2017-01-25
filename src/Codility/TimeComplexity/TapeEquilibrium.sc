@@ -56,3 +56,20 @@ solution(Array(-10, -20, -30, -40, 100))
 //Complexity:
 //
 //  expected worst-case time complexity is O(N);
+
+def mySolution(a: Array[Int]): Int = {
+  val sum: Int = a.sum
+  var lastValue = a.head
+  var absMin = Integer.MAX_VALUE
+  a.tail.foreach { aa =>
+    val secondValue: Int = sum - lastValue
+    val currentAbsMin = Math.abs(lastValue - secondValue)
+    absMin = Math.min(absMin, currentAbsMin)
+    lastValue = lastValue + aa
+  }
+  absMin
+}
+mySolution(Array(3, 1, 2, 4, 3))
+mySolution(Array(3, 1))
+mySolution(Array(-1000, 1000))
+mySolution(Array(-10, -20, -30, -40, 100))

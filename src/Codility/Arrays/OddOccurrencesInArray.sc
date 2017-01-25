@@ -59,3 +59,21 @@ solution(Array(33333, 9, 9))
 //expected worst-case time complexity is O(N);
 //expected worst-case space complexity is O(1), beyond input storage (not counting the storage required for input arguments).
 //
+
+def mySolution(a: Array[Int]): Int = {
+  val isUnpaired = mutable.Map[Int, Boolean]()
+  for (element <- a) {
+    if (isUnpaired.get(element).isDefined) {
+      isUnpaired.remove(element)
+    } else {
+      isUnpaired += element -> true
+    }
+  }
+  isUnpaired.keys.head
+}
+
+mySolution(Array(2, 2, 3, 3, 4))
+mySolution(Array(9, 3, 9, 3, 9, 7, 9))
+mySolution(Array(9, 9, 1))
+mySolution(Array(9, 9, 9))
+mySolution(Array(33333, 9, 9))

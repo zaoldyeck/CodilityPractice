@@ -73,3 +73,15 @@ solution(Array(1, 1, 9, 9, 9, 0, 0)) == 5
 //Complexity:
 //
 //  expected worst-case time complexity is O(N);
+
+def mySolution(a: Array[Int]): Int = {
+  var minAvg = 0
+
+}
+
+mySolution(Array(-3, -5, -8, -4, -10)) == 2
+mySolution(Array(4, 2, 2, 5, 1, 5)) == 1
+mySolution(Array(4, 2, 5, 1, 1, 1, 9)) == 3
+mySolution(Array(9, 9)) == 0
+mySolution(Array(1, 1, 9, 9, 9, 9)) == 0
+mySolution(Array(1, 1, 9, 9, 9, 0, 0)) == 5

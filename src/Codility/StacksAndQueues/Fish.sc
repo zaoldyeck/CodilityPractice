@@ -1,3 +1,5 @@
+import scala.collection.mutable
+
 //TODO: one more time
 //Fish number P is represented by A[P] and B[P].
 //Array A contains the sizes of the fish. All
@@ -60,3 +62,47 @@ solution(Array(4, 3, 2, 1, 5), Array(0, 1, 0, 0, 1))
 //  Complexity:
 //
 //  expected worst-case time complexity is O(N);
+
+def mySolution(a: Array[Int], b: Array[Int]): Int = {
+
+  //wrong answer because if upstream eat downstream, it will then eat other fish
+  //so this question need use Stack
+  /*
+  var alive = 0
+  (a zip b).foldLeft(-1) {
+    case (lastA, (aa, bb)) =>
+      if (lastA < 0) {
+        alive += 1
+        if (bb == 0) lastA else aa
+      } else {
+        if (bb == 0) {
+          if (lastA > aa) lastA else -1
+        } else {
+          alive += 1
+          aa
+        }
+      }
+  }
+  alive
+  */
+
+  var alive = 0
+  val stack: mutable.Stack[Int] = new mutable.Stack[Int]
+  for (i <- a.indices) {
+    if (b(i) == 1) {
+      alive += 1
+      stack.push(a(i))
+    } else {
+      while (stack.nonEmpty && stack.top < a(i)) {
+        alive -= 1
+        stack.pop
+      }
+      if (stack.isEmpty) alive += 1
+    }
+  }
+  alive
+}
+
+mySolution(Array(4, 3, 2, 1, 5), Array(0, 1, 0, 0, 1))
+mySolution(Array(4, 3, 2, 1, 5), Array(0, 0, 0, 0, 1))
+mySolution(Array(4, 3, 2, 1, 5), Array(1, 1, 1, 1, 0))

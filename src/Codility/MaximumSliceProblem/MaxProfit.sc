@@ -47,3 +47,16 @@ solution(Array(23171, 21011, 21123, 21366, 21013, 21367))
 //
 //the function should return 356, as explained above.
 //expected worst-case time complexity is O(N);
+
+def mySolution(a: Array[Int]): Int = {
+  if (a.length < 2) return 0
+  var min = a.head
+  var profit = 0
+  a.foreach { aa =>
+    min = Math.min(min, aa)
+    profit = Math.max(profit, aa - min)
+  }
+  if (profit > 0) profit else 0
+}
+
+mySolution(Array(23171, 21011, 21123, 21366, 21013, 21367))

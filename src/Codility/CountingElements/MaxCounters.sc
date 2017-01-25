@@ -54,3 +54,20 @@ solution(5, Array(3, 4, 4, 6, 1, 4, 4)).toList
 //Complexity:
 //
 //expected worst-case time complexity is O(N+M);
+
+def mySolution(n: Int, a: Array[Int]): Array[Int] = {
+  val array: Array[Int] = Array.ofDim(n)
+  var currentMax = 0
+  var setedMax = 0
+  a.foreach {
+    case aa if aa >= 1 && aa <= n =>
+      val oldValue = array(aa - 1)
+      val newValue: Int = if (oldValue < setedMax) setedMax + 1 else oldValue + 1
+      array(aa - 1) = newValue
+      currentMax = currentMax max newValue
+    case aa if aa == n + 1 => setedMax = currentMax
+    case _ =>
+  }
+  array.map(aa => if (aa < setedMax) setedMax else aa)
+}
+mySolution(5, Array(3, 4, 4, 6, 1, 4, 4)).toList // 3,2,2,4,2

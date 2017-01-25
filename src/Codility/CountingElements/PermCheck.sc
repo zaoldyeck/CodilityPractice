@@ -18,13 +18,13 @@
 //is not a permutation, because value 2 is missing.
 //
 def solution(A: Array[Int]): Int = {
-  val sorted = A.sorted.view
-  if(sorted == (1 to sorted.length)) 1
+  val sorted = A.sorted
+  if (sorted.toSeq == (1 to sorted.length)) 1
   else 0
 }
 
-solution(Array(4,1,3,2))
-solution(Array(4,1,3))
+solution(Array(4, 1, 3, 2))
+solution(Array(4, 1, 3))
 solution(Array(1))
 solution(Array(2))
 //
@@ -54,3 +54,12 @@ solution(Array(2))
 //Complexity:
 //
 //  expected worst-case time complexity is O(N);
+
+def mySolution(a: Array[Int]): Int = {
+  if (a.sorted.toSeq == (1 to a.length)) 1 else 0
+}
+
+mySolution(Array(4, 1, 3, 2))
+mySolution(Array(4, 1, 3))
+mySolution(Array(1))
+mySolution(Array(2))

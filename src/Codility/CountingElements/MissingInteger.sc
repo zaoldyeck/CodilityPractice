@@ -2,10 +2,10 @@
 def solution(A: Array[Int]): Int = {
   val sorted = A.sorted
   val smallestIndex = sorted.indexWhere(_ > 0)
-  if(smallestIndex < 0) return 1
-  if(sorted(smallestIndex) > 1) return 1
-  for(n <- smallestIndex until A.length-1){
-    if(sorted(n+1) > sorted(n) + 1) return sorted(n) + 1
+  if (smallestIndex < 0) return 1
+  if (sorted(smallestIndex) > 1) return 1
+  for (n <- smallestIndex until A.length - 1) {
+    if (sorted(n + 1) > sorted(n) + 1) return sorted(n) + 1
   }
   sorted.last + 1
 }
@@ -22,11 +22,11 @@ def solution(A: Array[Int]): Int = {
 //A[4] = 1
 //A[5] = 2
 solution(Array(0))
-solution(Array(-2,-3,-5,1,3,6,4,1,2))
-solution(Array(-2,-3,-5))
-solution(Array(1,1,1,1,1,1,1,1,1,1,1,1,1))
-solution(Array(2,3,4,5,6))
-solution(Array(3,3,4,5,6))
+solution(Array(-2, -3, -5, 1, 3, 6, 4, 1, 2))
+solution(Array(-2, -3, -5))
+solution(Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+solution(Array(2, 3, 4, 5, 6))
+solution(Array(3, 3, 4, 5, 6))
 //the function should return 5.
 //
 //Assume that:
@@ -37,3 +37,18 @@ solution(Array(3,3,4,5,6))
 //Complexity:
 //
 //  expected worst-case time complexity is O(N);
+
+def mySolution(a: Array[Int]): Int = {
+  def findMissing(list: List[Int], n: Int): Int = {
+    if (list.isEmpty || list.head != n) n
+    else findMissing(list.tail, n + 1)
+  }
+  findMissing(a.filter(_ > 0).sorted.distinct.toList, 1)
+}
+
+mySolution(Array(0))
+mySolution(Array(-2, -3, -5, 1, 3, 6, 4, 1, 2))
+mySolution(Array(-2, -3, -5))
+mySolution(Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+mySolution(Array(2, 3, 4, 5, 6))
+mySolution(Array(3, 3, 4, 5, 6))

@@ -20,19 +20,19 @@ def solution(A: Array[Int]): Int = {
   var lastIndex = array.length - 1
 
   var min = Math.abs(array(headIndex) + array(lastIndex))
-  while(headIndex <= lastIndex){
+  while (headIndex <= lastIndex) {
     //update min
     val sum = array(headIndex) + array(lastIndex)
     min = Math.min(min, Math.abs(sum))
 
-    if(sum > 0)  lastIndex -=1
+    if (sum > 0) lastIndex -= 1
     else headIndex += 1
   }
   min
 }
-solution(Array(1,4,-3))
-solution(Array(1))
-solution(Array(-8,4,5,-10,3))
+//solution(Array(1,4,-3))
+//solution(Array(1))
+solution(Array(-8, 4, 5, -10, 3))
 //the function should return 1, as explained above.
 //A[0] = -8
 //A[1] =  4

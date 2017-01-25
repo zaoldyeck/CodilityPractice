@@ -17,7 +17,7 @@
 import collection._
 
 def solution(A: Array[Int]): Int = {
-  if(A.isEmpty) return -1
+  if (A.isEmpty) return -1
   val freqs = A.foldLeft(mutable.Map[Int, Int]().withDefaultValue(0)) { (acc, el) =>
     acc(el) += 1
     acc
@@ -38,3 +38,14 @@ solution(Array(3))
 //  Complexity:
 //
 //  expected worst-case time complexity is O(N);
+
+def mySolution(a: Array[Int]): Int = {
+  if (a.isEmpty) return -1
+  val intToInt: mutable.Map[Int, Int] = mutable.Map[Int, Int]().withDefaultValue(0)
+  a.foreach(aa => intToInt(aa) += 1)
+  val max: (Int, Int) = intToInt.maxBy(_._2)
+  if (max._2 > a.length / 2) a.indexOf(max._1) else -1
+}
+
+mySolution(Array(3, 4, 3, 2, 3, -1, 3, 3))
+mySolution(Array(3))

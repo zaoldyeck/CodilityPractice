@@ -1,3 +1,5 @@
+import scala.collection.parallel.immutable.ParSeq
+
 //TODO: one more time
 //A, C, G and T have impact factors of 1, 2, 3 and 4,
 //What is the minimal impact factor of nucleotides
@@ -15,18 +17,32 @@
 //psitions 0 and 6 all nucleotides A whose impact factor is 1, so the answer is 1.
 //
 def solution(S: String, P: Array[Int], Q: Array[Int]): Array[Int] = {
-  val values = S.view.par.map{
+  val values = S.view.par.map {
     case 'A' => 1
     case 'C' => 2
     case 'G' => 3
     case 'T' => 4
   }
-  (P zip Q) map {case (p, q) => values.slice(p, q+1).min}
-  }
-solution("CAGCCTA", Array(2,5,0), Array(4,5,6))
+  (P zip Q) map { case (p, q) => values.slice(p, q + 1).min }
+}
+solution("CAGCCTA", Array(2, 5, 0), Array(4, 5, 6)).toList
 //the function should return the values [2, 4, 1], as explained above.
 //N is an integer within the range [1..100,000];
 //M is an integer within the range [1..50,000];
 //each element of arrays P, Q is an integer within the range [0..N − 1];
 //P[K] ≤ Q[K], where 0 ≤ K < M;
 //  expected worst-case time complexity is O(N+M);
+
+def mySolution(s: String, p: Array[Int], q: Array[Int]): Array[Int] = {
+  val world: ParSeq[Int] = s.toList.par map {
+    case 'A' => 1
+    case 'C' => 2
+    case 'G' => 3
+    case 'T' => 4
+  }
+  p zip q map {
+    case (pp, qq) => world.slice(pp, qq + 1).min
+  }
+}
+
+mySolution("CAGCCTA", Array(2, 5, 0), Array(4, 5, 6)).toList

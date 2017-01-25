@@ -26,3 +26,17 @@ solution(1)
 //Complexity:
 //
 //  expected worst-case time complexity is O(sqrt(N));
+
+def mySolution(n: Int): Int = {
+  var factors = 0
+  for (i <- 1 to Math.sqrt(n).toInt) {
+    if (n % i == 0) {
+      if (n == i * i) factors += 1 else factors += 2
+    }
+  }
+  factors
+}
+mySolution(24) // 1,2,3,4,6,8,12,24 = 8
+mySolution(1)
+mySolution(16) // 1,2,4,8,16 = 5
+mySolution(36) // 1,2,3,4,6,9,12,18,36 = 9

@@ -6,13 +6,13 @@
 //Your goal is to find that missing element.
 
 def solution(A: Array[Int]): Int = {
-  if(A.isEmpty) 1
+  if (A.isEmpty) 1
   else if (A.max != A.length + 1) A.length + 1
   else (1 to A.max).sum - A.sum
 }
 
-solution(Array(2,3,1,5))
-solution(Array(2,3,4,5))
+solution(Array(2, 3, 1, 5))
+solution(Array(2, 3, 4, 5))
 solution(Array())
 //For example, given array A such that:
 //A[0] = 2
@@ -34,3 +34,25 @@ solution(Array())
 //expected worst-case space complexity is O(1), beyond input storage (not counting the storage required for input arguments).
 //
 //Elements of input arrays can be modified.
+
+def mySolution(a: Array[Int]): Int = {
+  if (a.isEmpty) 1
+  else if (a.max != a.length + 1) a.length
+  else (1 to a.max).sum - a.sum
+}
+
+mySolution(Array(2, 3, 1, 5))
+mySolution(Array(2, 3, 4, 5))
+mySolution(Array())
+
+def mySolution2(a: Array[Int]): Int = {
+  def findMissing(list: List[Int], i: Int): Int = {
+    if (list.isEmpty || list.head != i) i
+    else findMissing(list.tail, i + 1)
+  }
+  if (a.isEmpty) 1 else findMissing(a.sorted.toList, 1)
+}
+
+mySolution2(Array(2, 3, 1, 5))
+mySolution2(Array(2, 3, 4, 5))
+mySolution2(Array())

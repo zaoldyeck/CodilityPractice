@@ -2,15 +2,17 @@
 // The wall should be built of cuboid stone blocks
 //(that is, all sides of such blocks are rectangular).
 //Your task is to compute the minimum number of blocks needed to build the wall.
-import collection._
+import collection.{mutable, _}
+
 def solution(H: Array[Int]): Int = {
   val stack = new mutable.Stack[Int]
   var needed = 0
-  for(n <- H) {
-    while(stack.nonEmpty && stack.top > n) {
-      stack.pop()
+  for (n <- H) {
+    while (stack.nonEmpty && stack.top > n) {
+      //down
+      stack.pop() // remove top
     }
-    if(stack.isEmpty || stack.top != n) {
+    if (stack.isEmpty || stack.top != n) {
       stack.push(n)
       needed += 1
     }
@@ -18,7 +20,7 @@ def solution(H: Array[Int]): Int = {
   needed
 }
 //solution(Array(8,8,5,7,9,8,7,4,8))
-solution(Array(8,8,5,7))
+solution(Array(8, 8, 5, 7))
 //solution(Array(8,8,5,7,9))
 //
 //that, given a zero-indexed array H of N positive integers specifying
@@ -39,3 +41,19 @@ solution(Array(8,8,5,7))
 //Complexity:
 //
 //  expected worst-case time complexity is O(N);
+
+def mySolution(h: Array[Int]): Int = {
+  var needed = 0
+  val stack: mutable.Stack[Int] = new mutable.Stack
+
+  h.foreach { hh =>
+    while (stack.nonEmpty && stack.top > hh) stack.pop
+    if (stack.isEmpty || stack.top != hh) {
+      needed += 1
+      stack.push(hh)
+    }
+  }
+  needed
+}
+
+mySolution(Array(8, 8, 5, 7))

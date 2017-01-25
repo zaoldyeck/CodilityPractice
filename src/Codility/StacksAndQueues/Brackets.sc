@@ -1,3 +1,5 @@
+import scala.collection.mutable
+
 //A string S consisting of N characters is
 //considered to be properly nested if any
 //of the following conditions is true:
@@ -50,3 +52,45 @@ solution("([)()]") == 0
 //  Complexity:
 //
 //  expected worst-case time complexity is O(N);
+
+def mySolution(s: String): Int = {
+  var chars: List[Char] = List[Char]()
+  s.toList.foreach {
+    case world@('{' | '[' | '(') => chars = world :: chars
+    case x =>
+      if (chars.isEmpty) return 0
+      else x match {
+        case '}' if chars.head == '{' => chars = chars.tail
+        case ']' if chars.head == '[' => chars = chars.tail
+        case ')' if chars.head == '(' => chars = chars.tail
+        case _ => return 0
+      }
+  }
+  if (chars.isEmpty) 1 else 0
+}
+
+val goodString = "{[()()]}"
+val badString = "([())]"
+val badderString = ")[][()]}"
+mySolution(goodString)
+mySolution(badString)
+mySolution(badderString)
+
+
+// use Stack
+def mySolution2(s: String): Int = {
+  val chars: List[Char] = s.toList
+  val stack: mutable.Stack[Int] = new mutable.Stack[Int]
+  chars.foreach {
+    case world@('{' | '[' | '(') => stack.push(world)
+    case '}' => if (stack.nonEmpty && stack.top == '{') stack.pop else return 0
+    case ']' => if (stack.nonEmpty && stack.top == '[') stack.pop else return 0
+    case ')' => if (stack.nonEmpty && stack.top == '(') stack.pop else return 0
+    case _ => return 0
+  }
+  if (stack.isEmpty) 1 else 0
+}
+
+mySolution2(goodString)
+mySolution2(badString)
+mySolution2(badderString)
