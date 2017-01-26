@@ -16,17 +16,17 @@
 def solution(A: Array[Int], B: Array[Int], C: Array[Int]): Int = {
   var fence = A zip B
   def removePlanks(fence: Array[(Int, Int)], nail: Int): Array[(Int, Int)] = {
-    fence.filterNot{case (a, b) => a <= nail && b >= nail}
+    fence.filterNot { case (a, b) => a <= nail && b >= nail }
   }
   var n = 0
-  while(fence.nonEmpty){
-    if(n > C.length-1) return -1
+  while (fence.nonEmpty) {
+    if (n > C.length - 1) return -1
     fence = removePlanks(fence, C(n))
     n += 1
   }
   n
 }
-solution(Array(1,4,5,8), Array(4,5,9,10), Array(4,6,7,10,2))
+solution(Array(1, 4, 5, 8), Array(4, 5, 9, 10), Array(4, 6, 7, 10, 2))
 solution(Array(2), Array(2), Array(1))
 //four planks are represented: [1, 4], [4, 5], [5, 9] and [8, 10].
 //
@@ -39,3 +39,20 @@ solution(Array(2), Array(2), Array(1))
 //0, 1, 2, 3, then all the planks will be nailed.
 
 //  expected worst-case time complexity is O((N+M)*log(M));
+
+def mySolution(a: Array[Int], b: Array[Int], c: Array[Int]): Int = {
+  var nails = 0
+  var aZipB: Array[(Int, Int)] = a zip b
+  var i = 0
+  while (aZipB.nonEmpty) {
+    if (i > c.length - 1) return -1
+    aZipB = aZipB.filterNot {
+      case (aa, bb) => c(i) >= aa && c(i) <= bb
+    }
+    nails += 1
+    i += 1
+  }
+  nails
+}
+mySolution(Array(1, 4, 5, 8), Array(4, 5, 9, 10), Array(4, 6, 7, 10, 2))
+mySolution(Array(2), Array(2), Array(1))
