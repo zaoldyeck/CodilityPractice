@@ -40,6 +40,7 @@ solution(Array(2), Array(2), Array(1))
 
 //  expected worst-case time complexity is O((N+M)*log(M));
 
+//100% 25%
 def mySolution(a: Array[Int], b: Array[Int], c: Array[Int]): Int = {
   var nails = 0
   var aZipB: Array[(Int, Int)] = a zip b
