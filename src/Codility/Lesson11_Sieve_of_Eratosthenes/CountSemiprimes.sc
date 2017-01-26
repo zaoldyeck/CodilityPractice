@@ -35,7 +35,7 @@ def solution(N: Int, P: Array[Int], Q: Array[Int]) = {
     nf == 2
   }
   val semiprimes = (1 to N).scanLeft(0)((acc, el) => if (isSP(el)) acc + 1 else acc).view
-  (P zip Q).map { case (a, b) => semiprimes(b) - semiprimes(a-1) }
+  (P zip Q).map { case (a, b) => semiprimes(b) - semiprimes(a - 1) }
 }
 solution(26, Array(1, 4, 16), Array(26, 10, 20))
 //solution(26, Array(4), Array(10))
@@ -51,3 +51,24 @@ solution(26, Array(1, 4, 16), Array(26, 10, 20))
 //
 //the function should return the values [10, 4, 0], as explained above.
 //  expected worst-case time complexity is O(N*log(log(N))+M)
+
+def mySolution(n: Int, p: Array[Int], q: Array[Int]) = {
+  def isSP(n: Int): Boolean = {
+    var nf: Int = 0
+    var l = n
+    for (i <- 2 to l / 2) {
+      while (l % i == 0) {
+        if (nf == 2) return false
+        nf += 1
+        l /= i
+      }
+    }
+    nf == 2
+  }
+  val semiprimes = (1 to n).scanLeft(0)((acc, el) => if (isSP(el)) acc + 1 else acc).view
+  println(semiprimes.toList)
+  (p zip q).map {
+    case (pp, qq) => semiprimes(qq) - semiprimes(pp - 1)
+  }
+}
+mySolution(26, Array(1, 4, 16), Array(26, 10, 20)).toList

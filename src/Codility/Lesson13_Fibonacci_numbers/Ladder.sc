@@ -1,3 +1,5 @@
+import scala.collection.mutable
+
 //TODO: toooo slow
 //You have to climb up a ladder. The ladder has exactly N rungs,
 //numbered from 1 to N. With each step, you can ascend by one
@@ -23,15 +25,20 @@
 
 def solution(A: Array[Int], B: Array[Int]): Array[Int] = {
   def combinations(money: Int): Int = {
+    //println(money)
     if (money == 0) 1
     else if (money < 0) 0
-    else combinations(money -1) + combinations(money - 2)
+    else combinations(money - 1) + combinations(money - 2)
   }
-  val ways = Stream.from(1).map(combinations)
-  (A zip B) map {case(a, b) => ways(a-1) % Math.pow(2, b).toInt}
+
+  //println(combinations(4))
+  val ways: Stream[Int] = Stream.from(1).map(combinations)
+  (A zip B) map {
+    case (a, b) => combinations(a) % Math.pow(2, b).toInt
+  }
 }
 
-solution(Array(4,4,5,5,1), Array(3,2,4,3,1))
+solution(Array(4, 4, 5, 5, 1), Array(3, 2, 4, 3, 1)).toList
 //
 //that, given two non-empty zero-indexed arrays A and B of L integers,
 //returns an array consisting of L integers specifying the consecutive
@@ -47,3 +54,18 @@ solution(Array(4,4,5,5,1), Array(3,2,4,3,1))
 //the function should return the sequence [5, 1, 8, 0, 1], as explained above.
 
 //  expected worst-case time complexity is O(L);
+
+def mySolution(a: Array[Int], b: Array[Int]): Array[Int] = {
+  val fibs: Array[Int] = Array.ofDim(a.length + 2)
+  fibs(0) = 1
+  fibs(1) = 2
+  for (i <- 2 until a.length + 1) {
+    fibs(i) = fibs(i - 1) + fibs(i - 2)
+  }
+  //println(fibs.toList)
+  (a zip b).map {
+    case (aa, bb) => fibs(aa - 1) & (Math.pow(2, bb) - 1).toInt
+  }
+}
+
+mySolution(Array(4, 4, 5, 5, 1), Array(3, 2, 4, 3, 1)).toList

@@ -1,3 +1,5 @@
+import scala.collection.mutable
+
 //TODO: one more time
 //For each number A[i] such that 0 ≤ i < N,
 //we want to count the number of elements of
@@ -22,7 +24,7 @@ def solution(A: Array[Int]): Array[Int] = {
   val res = collection.mutable.Map[Int, Int]().withDefaultValue(0)
   for {
     i <- 0 until A.length - 1
-    previous = if(i > 0) sorted(i-1) else Int.MinValue
+    previous = if (i > 0) sorted(i - 1) else Int.MinValue
     if sorted(i) != previous
   } {
     val value = sorted(i)
@@ -30,6 +32,22 @@ def solution(A: Array[Int]): Array[Int] = {
   }
   A.map(i => A.length - 1 - res(i))
 }
-solution(Array(3, 1, 2, 3, 6))
+solution(Array(3, 1, 2, 3, 6)).toList
 //2, 4, 3, 2, 0
 //  expected worst-case time complexity is O(N*log(N))
+
+def mySolution(a: Array[Int]): Array[Int] = {
+  val answer: Array[Int] = Array.ofDim(a.length)
+  val map: mutable.Map[Int, Int] = mutable.Map()
+  for (i <- a.indices) {
+    answer(i) = if (map.get(a(i)).isDefined) map(a(i))
+    else {
+      val count: Int = a.count(a(i) % _ != 0)
+      map(a(i)) = count
+      count
+    }
+  }
+  answer
+}
+mySolution(Array(3, 1, 2, 3, 6)).toList
+Array(3, 1, 2, 3, 6).toBuffer.remove(2)

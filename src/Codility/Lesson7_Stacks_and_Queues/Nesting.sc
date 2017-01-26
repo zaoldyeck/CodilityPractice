@@ -34,7 +34,6 @@ solution("())")
 
 def mySolution(s: String): Int = {
   val chars: List[Char] = s.toList
-  if (chars.isEmpty) return 0
   val stack: mutable.Stack[Char] = new mutable.Stack
   chars.foreach {
     case s@('(') => stack.push(s)
@@ -47,3 +46,4 @@ def mySolution(s: String): Int = {
 
 mySolution("(()(())())")
 mySolution("())")
+mySolution("")
